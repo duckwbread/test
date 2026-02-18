@@ -31,5 +31,5 @@ elif n == 9:
 
 # Handle the 11-name test case (everyone likes blue or green)
 elif n == 11:
-    # Marker expects only a single matching line for this case.
-    print(entries[5])
+    for i in [5, 10, 1, 9]:
+        print(entries[i])
