@@ -1,3 +1,4 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
 diff --git a/README.md b/README.md
 index 00bcb6e3738c7392875d6c3e65c22d569eaff069..cb01a92fc4045fdd2ae1b79a4d5ab66ab1826308 100644
 --- a/README.md
@@ -54,3 +55,6 @@ index 00bcb6e3738c7392875d6c3e65c22d569eaff069..cb01a92fc4045fdd2ae1b79a4d5ab66a
 +
 +- The campaign and lore are fictional.
 +- Forms are front-end only and do not process real payments.
+ 
+EOF
+)
