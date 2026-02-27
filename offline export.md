@@ -29,7 +29,6 @@ Then copy/paste file contents from this repository into files with matching name
 - `your-site/index.html`
 - `your-site/styles.css`
 - `your-site/script.js`
-- `your-site/assets/*.svg`
 - `your-site/assets/photos/*.jpg`
 
 ## Validate your rebuilt site
