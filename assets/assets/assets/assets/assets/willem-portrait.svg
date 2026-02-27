@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f4c75"/>
+      <stop offset="1" stop-color="#1b262c"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg)"/>
+  <circle cx="300" cy="160" r="90" fill="#f4d8b2"/>
+  <ellipse cx="300" cy="95" rx="100" ry="45" fill="#e2c56f"/>
+  <circle cx="265" cy="155" r="12" fill="#3a86ff"/>
+  <circle cx="335" cy="155" r="12" fill="#3a86ff"/>
+  <path d="M255 210 Q300 235 345 210" stroke="#8d5524" stroke-width="6" fill="none"/>
+  <rect x="220" y="245" width="160" height="120" rx="20" fill="#123b5d"/>
+  <text x="30" y="370" font-size="26" fill="#d9f2ff" font-family="Arial">Willem (fictional illustration)</text>
+</svg>
