@@ -36,7 +36,7 @@ tar -czf blueshield-offline-site.tar.gz index.html styles.css script.js assets R
 
 ## How offline access works
 
-- The site depends on local files (`index.html`, `styles.css`, `script.js`, and all files under `assets/` and `assets/photos/`).
+- The site uses one HTML entry point (`index.html`) plus local files (`styles.css`, `script.js`, and all files under `assets/photos/`).
 - If someone else wants to run it offline, they need the full folder contents.
 - Best sharing method: send one archive (`.zip` or `.tar.gz`) with everything.
 
@@ -48,3 +48,20 @@ If you truly cannot download files directly, see `OFFLINE_EXPORT.md` for exact s
 
 - The campaign and lore are fictional.
 - Forms are front-end only and do not process real payments.
+
+
+## Image source note
+
+- The JPG photos in `assets/photos/` were downloaded from internet photo sources and stored locally for offline use.
+
+
+## Can I pull files from the internet into this project?
+
+Yes. I can download internet files in this environment and save them into the repo (for example into `assets/photos/`).
+For this site, the photos are local `.jpg` files that were downloaded from web image sources and are served offline afterward.
+
+Example download pattern:
+
+```bash
+curl -L "https://picsum.photos/seed/real-dolphin-ocean/1200/800.jpg" -o assets/photos/dolphins.jpg
+```
