@@ -21,7 +21,7 @@ Then open: `http://127.0.0.1:4173/index.html`
 From the project root, run:
 
 ```bash
-zip -r blueshield-offline-site.zip index.html styles.css script.js assets README.md OFFLINE_EXPORT.md
+zip -r blueshield-offline-site.zip index.html styles.css script.js README.md OFFLINE_EXPORT.md
 ```
 
 That ZIP is the file you share/send to others.
@@ -31,12 +31,12 @@ That ZIP is the file you share/send to others.
 Use tar instead:
 
 ```bash
-tar -czf blueshield-offline-site.tar.gz index.html styles.css script.js assets README.md OFFLINE_EXPORT.md
+tar -czf blueshield-offline-site.tar.gz index.html styles.css script.js README.md OFFLINE_EXPORT.md
 ```
 
 ## How offline access works
 
-- The site uses one HTML entry point (`index.html`) plus local files (`styles.css`, `script.js`, and all files under `assets/photos/`).
+- The site uses one HTML entry point (`index.html`) plus local files (`styles.css` and `script.js`). Images are embedded directly inside `index.html` as Base64 data URLs (no separate JPG files required).
 - If someone else wants to run it offline, they need the full folder contents.
 - Best sharing method: send one archive (`.zip` or `.tar.gz`) with everything.
 
@@ -65,3 +65,9 @@ Example download pattern:
 ```bash
 curl -L "https://picsum.photos/seed/real-dolphin-ocean/1200/800.jpg" -o assets/photos/dolphins.jpg
 ```
+
+
+## Embedded image mode
+
+- JPG images are embedded directly in `index.html` (`data:image/jpeg;base64,...`).
+- You do **not** need separate JPG files to view images when opening the page.
