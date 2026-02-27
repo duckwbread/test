@@ -7,29 +7,22 @@ If you cannot directly download files from your Codex session, use one of these 
 Run in project root:
 
 ```bash
-zip -r blueshield-offline-site.zip index.html styles.css script.js assets README.md OFFLINE_EXPORT.md
+zip -r blueshield-offline-site.zip index.html styles.css script.js README.md OFFLINE_EXPORT.md
 ```
 
 Alternative:
 
 ```bash
-tar -czf blueshield-offline-site.tar.gz index.html styles.css script.js assets README.md OFFLINE_EXPORT.md
+tar -czf blueshield-offline-site.tar.gz index.html styles.css script.js README.md OFFLINE_EXPORT.md
 ```
 
 ## Method B: Recreate files manually from code
-
-Create structure:
-
-```bash
-mkdir -p your-site/assets/photos
-```
 
 Then copy/paste file contents from this repository into files with matching names:
 
 - `your-site/index.html`
 - `your-site/styles.css`
 - `your-site/script.js`
-- `your-site/assets/photos/*.jpg`
 
 ## Validate your rebuilt site
 
