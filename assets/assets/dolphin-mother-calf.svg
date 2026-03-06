@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380">
-  <rect width="600" height="380" fill="#89cff0"/>
-  <rect y="120" width="600" height="260" fill="#2a6f97"/>
-  <path d="M120 235 Q210 160 320 225 Q280 240 265 275 Q190 265 120 235" fill="#d6f0ff"/>
-  <path d="M300 270 Q350 230 410 265 Q390 275 380 295 Q340 290 300 270" fill="#f0fbff"/>
-  <text x="18" y="30" font-size="24" fill="#05314f" font-family="Arial">Mother &amp; calf monitoring zone</text>
-</svg>
