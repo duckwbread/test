@@ -115,12 +115,28 @@ function initImageHealthCheck() {
   const toast = $('#toast');
   let activeModal = null;
 
-  const flash = (msg, warning = false) => {
+  const flash = (message, warning = false) => {
     if (!toast) return;
-    toast.textContent = msg;
-    toast.className = `toast ${warning ? 'warning' : ''}`;
+    toast.textContent = message;
+    toast.className = `toast${warning ? ' warning' : ''}`;
     clearTimeout(flash.timer);
-    flash.timer = setTimeout(() => (toast.className = 'toast hidden'), 2400);
+    flash.timer = setTimeout(() => (toast.className = 'toast hidden'), 3000);
+  };
+
+  const openModal = (id) => {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    activeModal = modal;
+    modal.querySelector('input,select,button')?.focus();
+  };
+
+  const closeModal = (modal = activeModal) => {
+    if (!modal) return;
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+    activeModal = null;
   };
 
   const blobToDataUrl = (blob) => new Promise((resolve, reject) => {
@@ -136,62 +152,26 @@ function initImageHealthCheck() {
     if (unloaded.length && brokenCount === 0) {
       unloaded.forEach((img) => img.classList.add('image-error'));
       showToast(`Detected ${unloaded.length} image loading issue(s).`, 'warning');
-  const tryInlineImage = async (img) => {
-    const candidates = (img.dataset.inlineSrcset || '').split('|').map((s) => s.trim()).filter(Boolean);
-    for (const path of candidates) {
-      try {
-        const res = await fetch(path);
-        if (!res.ok) continue;
-        img.src = await blobToDataUrl(await res.blob());
-        img.dataset.inlinedFrom = path;
-        return true;
-      } catch (_) {
-        // keep fallback src
-      }
+  const inlineImage = async (img) => {
+    if (!img || img.src.startsWith('data:')) return;
+    try {
+      const res = await fetch(img.src);
+      if (!res.ok) throw new Error('Image fetch failed');
+      img.src = await blobToDataUrl(await res.blob());
+    } catch {
+      // leave source untouched if conversion fails
     }
-    return false;
-  };
-
-  const inlineOptionalRepoImages = async () => {
-    const imgs = $$('img[data-inline-srcset]');
-    if (!imgs.length) return;
-    await Promise.all(imgs.map(tryInlineImage));
-  };
-
-  const openModal = (id) => {
-    const modal = document.getElementById(id);
-    if (!modal) return;
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    activeModal = modal;
-  };
-
-  const closeModal = (modal = activeModal) => {
-    if (!modal) return;
-    modal.classList.add('hidden');
-    document.body.style.overflow = '';
-    activeModal = null;
-  };
-
-  $$('[data-open-modal]').forEach((b) => b.addEventListener('click', () => openModal(b.dataset.openModal)));
-  $$('[data-close-modal]').forEach((b) => b.addEventListener('click', () => closeModal(b.closest('.modal'))));
-  $$('.modal').forEach((m) => m.addEventListener('click', (e) => e.target === m && closeModal(m)));
-  addEventListener('keydown', (e) => e.key === 'Escape' && closeModal());
-
-  $('#petitionForm')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = $('#petitionName')?.value.trim();
-    const email = $('#petitionEmail');
-    if (!name || name.length < 2 || !email?.checkValidity()) return flash('Please enter valid petition details.', true);
-    e.target.reset();
-    closeModal();
-    flash(`Thanks ${name}, your signature is saved.`);
   });
 }
+  };
 
 openPetitionButtons.forEach((btn) => {
   btn.addEventListener('click', () => openModal(petitionModal, btn));
 });
+  const inlineImagesForExport = async () => {
+    const images = $$('img[data-export-inline="true"]');
+    await Promise.all(images.map(inlineImage));
+  };
 
 openDonateButtons.forEach((btn) => {
   btn.addEventListener('click', () => openModal(donateModal, btn));
@@ -201,14 +181,8 @@ document.querySelectorAll('[data-close]').forEach((btn) => {
   btn.addEventListener('click', () => {
     const id = btn.getAttribute('data-close');
     closeModal(document.getElementById(id));
-  $('#donateForm')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const amount = Number($('#amount')?.value || 0);
-    const method = $('#method')?.value;
-    if (amount < 1 || !method) return flash('Please enter a donation amount and method.', true);
-    e.target.reset();
-    closeModal();
-    flash(`Thank you for the $${amount} donation.`);
+  $$('[data-open-modal]').forEach((button) => {
+    button.addEventListener('click', () => openModal(button.dataset.openModal));
   });
 });
 
@@ -226,10 +200,16 @@ window.addEventListener('keydown', (event) => {
   if (event.key === 'Tab' && activeModal) {
     const focusables = getFocusableElements(activeModal);
     if (!focusables.length) return;
+  $$('[data-close-modal]').forEach((button) => {
+    button.addEventListener('click', () => closeModal(button.closest('.modal')));
+  });
 
     const first = focusables[0];
     const last = focusables[focusables.length - 1];
     const current = document.activeElement;
+  $$('.modal').forEach((modal) => {
+    modal.addEventListener('click', (event) => event.target === modal && closeModal(modal));
+  });
 
     if (event.shiftKey && current === first) {
       event.preventDefault();
@@ -240,45 +220,68 @@ window.addEventListener('keydown', (event) => {
     }
   }
 });
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeModal();
+  });
 
 const petitionForm = document.getElementById('petitionForm');
 if (petitionForm) {
   petitionForm.addEventListener('submit', (event) => {
+  $('#petitionForm')?.addEventListener('submit', (event) => {
     event.preventDefault();
     if (!validatePetitionForm()) {
       showToast('Please enter a valid full name and email for the petition.', 'warning');
+    const name = $('#petitionName')?.value.trim() || '';
+    const email = $('#petitionEmail');
+    if (name.length < 2 || !email?.checkValidity()) {
+      flash('Please enter a valid full name and email.', true);
       return;
     }
     const fullName = document.getElementById('petitionName').value.trim();
     petitionForm.reset();
     closeModal(petitionModal);
     showToast(`Thanks ${fullName}, your petition signup is recorded.`, 'success');
+    event.target.reset();
+    closeModal();
+    flash(`Thanks ${name}, your petition signup is recorded.`);
   });
 }
 
 const donateForm = document.getElementById('donateForm');
 if (donateForm) {
   donateForm.addEventListener('submit', (event) => {
+  $('#donateForm')?.addEventListener('submit', (event) => {
     event.preventDefault();
     if (!validateDonationForm()) {
       showToast('Please complete payment method, amount, name, and email.', 'warning');
+    const amount = Number($('#amount')?.value || 0);
+    const method = $('#method')?.value;
+    if (amount < 1 || !method) {
+      flash('Please enter donation amount and method.', true);
       return;
     }
     const amount = document.getElementById('amount').value;
     donateForm.reset();
     closeModal(donateModal);
     showToast(`Thank you for your $${amount} donation to BSA.`, 'success');
-  $('#downloadPage')?.addEventListener('click', async () => {
-    await inlineOptionalRepoImages();
-    const html = '<!doctype html>\n' + document.documentElement.outerHTML;
-    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    const a = Object.assign(document.createElement('a'), { href: url, download: 'blueshield-offline.html' });
-    a.click();
-    URL.revokeObjectURL(url);
-    flash('Downloaded current page with embedded base64 images.');
+    event.target.reset();
+    closeModal();
+    flash(`Thank you for your $${amount} donation.`);
   });
 }
 
 initImageHealthCheck();
-  inlineOptionalRepoImages();
+  $('#downloadPage')?.addEventListener('click', async () => {
+    await inlineImagesForExport();
+    const html = '<!doctype html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const link = Object.assign(document.createElement('a'), {
+      href: url,
+      download: 'blueshield-offline.html'
+    });
+    link.click();
+    URL.revokeObjectURL(url);
+    flash('Downloaded offline HTML with embedded base64 images.');
+  });
 })();
