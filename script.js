@@ -163,19 +163,19 @@ function initImageHealthCheck() {
     }
   });
 }
-  };
 
 openPetitionButtons.forEach((btn) => {
   btn.addEventListener('click', () => openModal(petitionModal, btn));
 });
-  const inlineImagesForExport = async () => {
-    const images = $$('img[data-export-inline="true"]');
-    await Promise.all(images.map(inlineImage));
   };
 
 openDonateButtons.forEach((btn) => {
   btn.addEventListener('click', () => openModal(donateModal, btn));
 });
+  const inlineImagesForExport = async () => {
+    const images = $$('img[data-export-inline="true"]');
+    await Promise.all(images.map(inlineImage));
+  };
 
 document.querySelectorAll('[data-close]').forEach((btn) => {
   btn.addEventListener('click', () => {
@@ -272,6 +272,9 @@ if (donateForm) {
 
 initImageHealthCheck();
   $('#downloadPage')?.addEventListener('click', async () => {
+    if (location.protocol === 'file:') {
+      flash('Tip: run a local server (python3 -m http.server 4173) before exporting so images can be embedded.', true);
+    }
     await inlineImagesForExport();
     const html = '<!doctype html>\n' + document.documentElement.outerHTML;
     const blob = new Blob([html], { type: 'text/html' });
