@@ -1677,83 +1677,150 @@ The Last Listener
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BlueShield Alliance | Coastal Protection</title>
-  <meta name="description" content="BlueShield Alliance fictional campaign site with cleaner UI, JavaScript interactions, and offline-friendly base64 images." />
+  <title>BlueShield Alliance | Protect Coastal Dolphin Pods</title>
+  <meta name="description" content="BlueShield Alliance campaign site with cleaned UI, accessible layout, working modals, and offline export that embeds images as base64." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header">
     <div class="nav-wrap">
-      <div class="brand">BlueShield Alliance</div>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="lore-origins.html">Origins</a>
-        <a href="lore-depths.html">Depths</a>
-        <a href="lore-conflict.html">Conflict</a>
+      <a class="brand" href="index.html">BlueShield Alliance</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#story">Story</a>
+        <a href="#team">Team</a>
+        <a href="#lore">Lore</a>
+        <a href="#faq">FAQ</a>
       </nav>
     </div>
   </header>
 
   <main id="main" class="page-shell">
-    <section class="hero">
+    <section class="hero card" id="story">
       <div>
         <p class="eyebrow">Fictional conservation campaign</p>
-        <h1>BlueShield response console</h1>
+        <h1>Protect coastal dolphin pods from the Willem threat</h1>
         <p>
-          Updated UI with reusable cards, better spacing, and a dedicated script file. Images are embedded in base64,
-          so they stay with the HTML when shared offline.
+          The UI is now simplified, spaced properly, and easier to read. Modals, links, and download behavior are fixed.
+          Images are loaded from your <code>assets/images</code> folder and can be embedded as base64 when exported.
         </p>
+
         <div class="button-row">
-          <button class="btn primary" data-open-modal="petitionModal">Sign Petition</button>
+          <button class="btn primary" data-open-modal="petitionModal">Sign Up to Petition</button>
           <button class="btn secondary" data-open-modal="donateModal">Donate</button>
-          <button class="btn secondary" id="downloadPage">Download this HTML</button>
+          <button class="btn secondary" id="downloadPage">Download Offline HTML</button>
         </div>
-        <div class="stat-grid">
-          <article class="stat"><strong>54</strong>Harbors engaged</article>
-          <article class="stat"><strong>210+</strong>Volunteer spotters</article>
-          <article class="stat"><strong>18</strong>Nursery zones mapped</article>
-        </div>
+
+        <ul class="stat-grid" aria-label="Campaign stats">
+          <li class="stat"><strong>54</strong>Harbors engaged</li>
+          <li class="stat"><strong>210+</strong>Volunteer spotters</li>
+          <li class="stat"><strong>18</strong>Nursery routes mapped</li>
+        </ul>
       </div>
-      <img class="inline-image" loading="lazy" alt="Foamy shoreline graphic" data-inline-srcset="assets/images/beach-foam.webp|assets/beach-foam.svg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgMzgwIj4KICA8cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzRlYThkZSIvPgogIDxyZWN0IHk9IjIwMCIgd2lkdGg9IjYwMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNkNGEzNzMiLz4KICA8Y2lyY2xlIGN4PSI5MCIgY3k9IjE5NSIgcj0iMjgiIGZpbGw9IiNmOGZiZmYiLz4KICA8Y2lyY2xlIGN4PSIxMzAiIGN5PSIyMTAiIHI9IjM1IiBmaWxsPSIjZmZmZmZmIi8+CiAgPGNpcmNsZSBjeD0iMTcwIiBjeT0iMTkwIiByPSIyNiIgZmlsbD0iI2YxZjhmZiIvPgogIDxjaXJjbGUgY3g9IjIyMCIgY3k9IjIwOCIgcj0iMzAiIGZpbGw9IiNmZmZmZmYiLz4KICA8Y2lyY2xlIGN4PSIyNzAiIGN5PSIxOTUiIHI9IjI0IiBmaWxsPSIjZjhmYmZmIi8+CiAgPGNpcmNsZSBjeD0iMzIwIiBjeT0iMjEwIiByPSIzMCIgZmlsbD0iI2ZmZmZmZiIvPgogIDxjaXJjbGUgY3g9IjM3MCIgY3k9IjE5OCIgcj0iMjYiIGZpbGw9IiNmMmY5ZmYiLz4KICA8Y2lyY2xlIGN4PSI0MzAiIGN5PSIyMTUiIHI9IjMyIiBmaWxsPSIjZmZmZmZmIi8+CiAgPGNpcmNsZSBjeD0iNDkwIiBjeT0iMjAwIiByPSIyNyIgZmlsbD0iI2Y3ZmJmZiIvPgo8L3N2Zz4K" />
+      <img class="inline-image" alt="Willem field photo" src="assets/images/willem-1.webp" data-export-inline="true" loading="lazy" />
     </section>
 
-    <section class="card">
-      <h2>Image packaging status</h2>
-      <p>This page first tries <code>assets/images/*.webp</code> (if present), converts them to base64 in-browser, and falls back to built-in embedded images.</p>
+    <section class="card" id="team">
+      <h2>Campaign team</h2>
+      <div class="grid-4">
+        <article class="person-card">
+          <img class="person-image" alt="Jack profile" src="assets/images/jack-old.webp" data-export-inline="true" loading="lazy" />
+          <h3>Jack Wilson</h3>
+          <p>Marine biology lead coordinating pod movement monitoring.</p>
+        </article>
+        <article class="person-card">
+          <img class="person-image" alt="Micael profile" src="assets/images/michael-old.webp" data-export-inline="true" loading="lazy" />
+          <h3>Micael</h3>
+          <p>Logistics and finance, keeping operations supplied.</p>
+        </article>
+        <article class="person-card">
+          <img class="person-image" alt="Tim profile" src="assets/images/tim-old.webp" data-export-inline="true" loading="lazy" />
+          <h3>Tim</h3>
+          <p>Shoreline response and community briefing coordination.</p>
+        </article>
+        <article class="person-card">
+          <img class="person-image" alt="Cole profile" src="assets/images/cole-old.webp" data-export-inline="true" loading="lazy" />
+          <h3>Cole</h3>
+          <p>Offshore tactical support for pod-safe route clearing.</p>
+        </article>
+      </div>
     </section>
 
-    <section class="grid-3">
-      <article class="card"><h3>Mother + Calf Zone</h3><img class="inline-image" loading="lazy" alt="Mother and calf dolphins" data-inline-srcset="assets/images/dolphin-mother-calf.webp|assets/assets/dolphin-mother-calf.svg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgMzgwIj4KICA8cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjM4MCIgZmlsbD0iIzg5Y2ZmMCIvPgogIDxyZWN0IHk9IjEyMCIgd2lkdGg9IjYwMCIgaGVpZ2h0PSIyNjAiIGZpbGw9IiMyYTZmOTciLz4KICA8cGF0aCBkPSJNMTIwIDIzNSBRMjEwIDE2MCAzMjAgMjI1IFEyODAgMjQwIDI2NSAyNzUgUTE5MCAyNjUgMTIwIDIzNSIgZmlsbD0iI2Q2ZjBmZiIvPgogIDxwYXRoIGQ9Ik0zMDAgMjcwIFEzNTAgMjMwIDQxMCAyNjUgUTM5MCAyNzUgMzgwIDI5NSBRMzQwIDI5MCAzMDAgMjcwIiBmaWxsPSIjZjBmYmZmIi8+CiAgPHRleHQgeD0iMTgiIHk9IjMwIiBmb250LXNpemU9IjI0IiBmaWxsPSIjMDUzMTRmIiBmb250LWZhbWlseT0iQXJpYWwiPk1vdGhlciAmYW1wOyBjYWxmIG1vbml0b3Jpbmcgem9uZTwvdGV4dD4KPC9zdmc+Cg==" /></article>
-      <article class="card"><h3>Pod Tracking</h3><img class="inline-image" loading="lazy" alt="Dolphin pod mapping" data-inline-srcset="assets/images/dolphins-pod.webp|assets/assets/assets/dolphins-pod.svg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgMzgwIj4KICA8cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjM4MCIgZmlsbD0iIzY1YzdmNyIvPgogIDxyZWN0IHk9IjEzMCIgd2lkdGg9IjYwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxZTYwOTEiLz4KICA8cGF0aCBkPSJNODAgMjMwIFExMzAgMTgwIDE5MCAyMjAgUTE2MCAyMzAgMTUwIDI2MCBRMTIwIDI1MCA4MCAyMzAiIGZpbGw9IiNhOWQ2ZTUiLz4KICA8cGF0aCBkPSJNMjQwIDIxMCBRMjkwIDE2NSAzNTAgMjA1IFEzMjAgMjE1IDMxMCAyNDUgUTI4MCAyMzUgMjQwIDIxMCIgZmlsbD0iI2NkZWZmZCIvPgogIDxwYXRoIGQ9Ik0zOTAgMjQwIFE0NDAgMTkwIDUwMCAyMzAgUTQ3MCAyNDAgNDYwIDI3MCBRNDMwIDI2MCAzOTAgMjQwIiBmaWxsPSIjYmRlMGZlIi8+CiAgPGNpcmNsZSBjeD0iMTE4IiBjeT0iMjI1IiByPSIzIiBmaWxsPSIjMGIxZDJhIi8+CiAgPGNpcmNsZSBjeD0iMjc4IiBjeT0iMjA3IiByPSIzIiBmaWxsPSIjMGIxZDJhIi8+CiAgPGNpcmNsZSBjeD0iNDI4IiBjeT0iMjM2IiByPSIzIiBmaWxsPSIjMGIxZDJhIi8+Cjwvc3ZnPgo=" /></article>
-      <article class="card"><h3>Fishermen Patrol Boat</h3><img class="inline-image" loading="lazy" alt="Fishermen boat route" data-inline-srcset="assets/images/fishermen-boat.webp|assets/assets/assets/assets/fishermen-boat.svg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgMzgwIj4KICA8cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjM4MCIgZmlsbD0iIzY1YzdmNyIvPgogIDxyZWN0IHk9IjEzMCIgd2lkdGg9IjYwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMxZTYwOTEiLz4KICA8cGF0aCBkPSJNODAgMjMwIFExMzAgMTgwIDE5MCAyMjAgUTE2MCAyMzAgMTUwIDI2MCBRMTIwIDI1MCA4MCAyMzAiIGZpbGw9IiNhOWQ2ZTUiLz4KICA8cGF0aCBkPSJNMjQwIDIxMCBRMjkwIDE2NSAzNTAgMjA1IFEzMjAgMjE1IDMxMCAyNDUgUTI4MCAyMzUgMjQwIDIxMCIgZmlsbD0iI2NkZWZmZCIvPgogIDxwYXRoIGQ9Ik0zOTAgMjQwIFE0NDAgMTkwIDUwMCAyMzAgUTQ3MCAyNDAgNDYwIDI3MCBRNDMwIDI2MCAzOTAgMjQwIiBmaWxsPSIjYmRlMGZlIi8+CiAgPGNpcmNsZSBjeD0iMTE4IiBjeT0iMjI1IiByPSIzIiBmaWxsPSIjMGIxZDJhIi8+CiAgPGNpcmNsZSBjeD0iMjc4IiBjeT0iMjA3IiByPSIzIiBmaWxsPSIjMGIxZDJhIi8+CiAgPGNpcmNsZSBjeD0iNDI4IiBjeT0iMjM2IiByPSIzIiBmaWxsPSIjMGIxZDJhIi8+Cjwvc3ZnPgo=" /></article>
-      <article class="card"><h3>Willem Portrait</h3><img class="inline-image" loading="lazy" alt="Willem illustration" data-inline-srcset="assets/images/willem-portrait.webp|assets/assets/assets/assets/assets/willem-portrait.svg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNDAwIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMGY0Yzc1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzFiMjYyYyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9InVybCgjYmcpIi8+CiAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iMTYwIiByPSI5MCIgZmlsbD0iI2Y0ZDhiMiIvPgogIDxlbGxpcHNlIGN4PSIzMDAiIGN5PSI5NSIgcng9IjEwMCIgcnk9IjQ1IiBmaWxsPSIjZTJjNTZmIi8+CiAgPGNpcmNsZSBjeD0iMjY1IiBjeT0iMTU1IiByPSIxMiIgZmlsbD0iIzNhODZmZiIvPgogIDxjaXJjbGUgY3g9IjMzNSIgY3k9IjE1NSIgcj0iMTIiIGZpbGw9IiMzYTg2ZmYiLz4KICA8cGF0aCBkPSJNMjU1IDIxMCBRMzAwIDIzNSAzNDUgMjEwIiBzdHJva2U9IiM4ZDU1MjQiIHN0cm9rZS13aWR0aD0iNiIgZmlsbD0ibm9uZSIvPgogIDxyZWN0IHg9IjIyMCIgeT0iMjQ1IiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEyMCIgcng9IjIwIiBmaWxsPSIjMTIzYjVkIi8+CiAgPHRleHQgeD0iMzAiIHk9IjM3MCIgZm9udC1zaXplPSIyNiIgZmlsbD0iI2Q5ZjJmZiIgZm9udC1mYW1pbHk9IkFyaWFsIj5XaWxsZW0gKGZpY3Rpb25hbCBpbGx1c3RyYXRpb24pPC90ZXh0Pgo8L3N2Zz4K" /></article>
+    <section class="card" id="lore">
+      <h2>Lore chapters</h2>
+      <p>Formatted chapter pages with cleaner spacing:</p>
+      <div class="chapter-grid">
+        <a class="chapter-link" href="lore-origins.html">Origins</a>
+        <a class="chapter-link" href="lore-depths.html">Depths</a>
+        <a class="chapter-link" href="lore-conflict.html">Conflict</a>
+      </div>
+    </section>
+
+    <section class="card" id="faq">
+      <h2>FAQ</h2>
+      <details>
+        <summary>What was the “massive gibberish” in the HTML?</summary>
+        <p>
+          That was base64 image data (binary image bytes encoded as text). It looked like gibberish because it was the full image file embedded directly inside HTML.
+          I removed those giant inline blocks from normal page markup and now keep image files readable in <code>assets/images</code>.
+        </p>
+      </details>
+      <details>
+        <summary>How does offline export work now?</summary>
+        <p>
+          When you click <strong>Download Offline HTML</strong>, JavaScript converts current image files into base64 and embeds them in the downloaded file.
+          This keeps your shipped HTML self-contained without giant hard-coded base64 blobs in source.
+        </p>
+      </details>
     </section>
   </main>
 
-  <div class="modal hidden" id="petitionModal" role="dialog" aria-modal="true" aria-labelledby="petitionTitle">
-    <div class="modal-content">
-      <h3 id="petitionTitle">Sign petition</h3>
+  <div id="petitionModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="petitionTitle">
+    <div class="modal-content" tabindex="-1">
+      <h3 id="petitionTitle">Sign Up to Petition</h3>
       <form id="petitionForm">
-        <div class="field"><label for="petitionName">Name</label><input id="petitionName" required /></div>
-        <div class="field"><label for="petitionEmail">Email</label><input id="petitionEmail" type="email" required /></div>
-        <div class="button-row"><button class="btn primary" type="submit">Submit</button><button class="btn" type="button" data-close-modal>Close</button></div>
+        <div class="field">
+          <label for="petitionName">Full name</label>
+          <input id="petitionName" name="petitionName" required minlength="2" />
+        </div>
+        <div class="field">
+          <label for="petitionEmail">Email</label>
+          <input id="petitionEmail" name="petitionEmail" type="email" required />
+        </div>
+        <div class="button-row">
+          <button type="submit" class="btn primary">Submit</button>
+          <button type="button" class="btn secondary" data-close-modal>Close</button>
+        </div>
       </form>
     </div>
   </div>
 
-  <div class="modal hidden" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="donateTitle">
-    <div class="modal-content">
-      <h3 id="donateTitle">Donate (demo)</h3>
+  <div id="donateModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="donateTitle">
+    <div class="modal-content" tabindex="-1">
+      <h3 id="donateTitle">Donate</h3>
       <form id="donateForm">
-        <div class="field"><label for="amount">Amount (USD)</label><input id="amount" type="number" min="1" required /></div>
-        <div class="field"><label for="method">Method</label><select id="method" required><option value="">Select</option><option>Card</option><option>Wire</option></select></div>
-        <div class="button-row"><button class="btn primary" type="submit">Submit</button><button class="btn" type="button" data-close-modal>Close</button></div>
+        <div class="field">
+          <label for="amount">Amount (USD)</label>
+          <input id="amount" name="amount" type="number" min="1" required />
+        </div>
+        <div class="field">
+          <label for="method">Method</label>
+          <select id="method" name="method" required>
+            <option value="">Select payment method</option>
+            <option value="card">Card</option>
+            <option value="wire">Wire</option>
+          </select>
+        </div>
+        <div class="button-row">
+          <button type="submit" class="btn primary">Submit</button>
+          <button type="button" class="btn secondary" data-close-modal>Close</button>
+        </div>
       </form>
     </div>
   </div>
 
-  <div class="toast hidden" id="toast"></div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
 </html>
