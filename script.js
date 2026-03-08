@@ -97,18 +97,6 @@ function validateDonationForm() {
 
   return valid;
 }
-
-function initImageHealthCheck() {
-  const images = Array.from(document.querySelectorAll('img[data-required-image="true"]'));
-  if (!images.length) return;
-
-  let brokenCount = 0;
-  images.forEach((img) => {
-    img.addEventListener('error', () => {
-      img.classList.add('image-error');
-      brokenCount += 1;
-      showToast(`Image failed to load: ${img.getAttribute('src')}`, 'warning');
-    });
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -120,7 +108,7 @@ function initImageHealthCheck() {
     toast.textContent = message;
     toast.className = `toast${warning ? ' warning' : ''}`;
     clearTimeout(flash.timer);
-    flash.timer = setTimeout(() => (toast.className = 'toast hidden'), 3000);
+    flash.timer = setTimeout(() => (toast.className = 'toast hidden'), 3200);
   };
 
   const openModal = (id) => {
@@ -132,6 +120,20 @@ function initImageHealthCheck() {
     modal.querySelector('input,select,button')?.focus();
   };
 
+
+  const validateRequiredImages = () => {
+    const required = $$('img[data-required-image="true"]');
+    if (!required.length) return;
+    required.forEach((img) => {
+      img.addEventListener('error', () => {
+        flash(`Image failed to load: ${img.getAttribute('src')}`, true);
+      });
+    });
+  };
+
+function initImageHealthCheck() {
+  const images = Array.from(document.querySelectorAll('img[data-required-image="true"]'));
+  if (!images.length) return;
   const closeModal = (modal = activeModal) => {
     if (!modal) return;
     modal.classList.add('hidden');
@@ -139,11 +141,15 @@ function initImageHealthCheck() {
     activeModal = null;
   };
 
-  const blobToDataUrl = (blob) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
+  let brokenCount = 0;
+  images.forEach((img) => {
+    img.addEventListener('error', () => {
+      img.classList.add('image-error');
+      brokenCount += 1;
+      showToast(`Image failed to load: ${img.getAttribute('src')}`, 'warning');
+    });
+  $$('[data-open-modal]').forEach((button) => {
+    button.addEventListener('click', () => openModal(button.dataset.openModal));
   });
 
   window.addEventListener('load', () => {
@@ -152,37 +158,28 @@ function initImageHealthCheck() {
     if (unloaded.length && brokenCount === 0) {
       unloaded.forEach((img) => img.classList.add('image-error'));
       showToast(`Detected ${unloaded.length} image loading issue(s).`, 'warning');
-  const inlineImage = async (img) => {
-    if (!img || img.src.startsWith('data:')) return;
-    try {
-      const res = await fetch(img.src);
-      if (!res.ok) throw new Error('Image fetch failed');
-      img.src = await blobToDataUrl(await res.blob());
-    } catch {
-      // leave source untouched if conversion fails
     }
+  $$('[data-close-modal]').forEach((button) => {
+    button.addEventListener('click', () => closeModal(button.closest('.modal')));
   });
 }
 
 openPetitionButtons.forEach((btn) => {
   btn.addEventListener('click', () => openModal(petitionModal, btn));
 });
-  };
 
 openDonateButtons.forEach((btn) => {
   btn.addEventListener('click', () => openModal(donateModal, btn));
 });
-  const inlineImagesForExport = async () => {
-    const images = $$('img[data-export-inline="true"]');
-    await Promise.all(images.map(inlineImage));
-  };
 
 document.querySelectorAll('[data-close]').forEach((btn) => {
   btn.addEventListener('click', () => {
     const id = btn.getAttribute('data-close');
     closeModal(document.getElementById(id));
-  $$('[data-open-modal]').forEach((button) => {
-    button.addEventListener('click', () => openModal(button.dataset.openModal));
+  $$('.modal').forEach((modal) => {
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeModal(modal);
+    });
   });
 });
 
@@ -200,16 +197,10 @@ window.addEventListener('keydown', (event) => {
   if (event.key === 'Tab' && activeModal) {
     const focusables = getFocusableElements(activeModal);
     if (!focusables.length) return;
-  $$('[data-close-modal]').forEach((button) => {
-    button.addEventListener('click', () => closeModal(button.closest('.modal')));
-  });
 
     const first = focusables[0];
     const last = focusables[focusables.length - 1];
     const current = document.activeElement;
-  $$('.modal').forEach((modal) => {
-    modal.addEventListener('click', (event) => event.target === modal && closeModal(modal));
-  });
 
     if (event.shiftKey && current === first) {
       event.preventDefault();
@@ -271,20 +262,18 @@ if (donateForm) {
 }
 
 initImageHealthCheck();
-  $('#downloadPage')?.addEventListener('click', async () => {
-    if (location.protocol === 'file:') {
-      flash('Tip: run a local server (python3 -m http.server 4173) before exporting so images can be embedded.', true);
-    }
-    await inlineImagesForExport();
+  validateRequiredImages();
+
+  $('#downloadPage')?.addEventListener('click', () => {
     const html = '<!doctype html>\n' + document.documentElement.outerHTML;
     const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const link = Object.assign(document.createElement('a'), {
       href: url,
-      download: 'blueshield-offline.html'
+      download: 'blueshield-clean-source.html'
     });
     link.click();
     URL.revokeObjectURL(url);
-    flash('Downloaded offline HTML with embedded base64 images.');
+    flash('Downloaded HTML source without giant base64 image blocks.');
   });
 })();
