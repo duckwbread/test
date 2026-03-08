@@ -6,7 +6,7 @@ If you cannot directly download files from your Codex session, use one of these 
 
 Run in project root:
 ## Recommended run mode
-Use a local server for reliable JS/image export behavior:
+Use a local server for reliable JS behavior:
 
 ```bash
 zip -r blueshield-offline-site.zip index.html styles.css script.js README.md OFFLINE_EXPORT.md
@@ -63,4 +63,4 @@ Anyone who wants the site offline must receive the full file set (preferably as 
 - No styling: ensure `styles.css` is next to HTML files.
 - No modal behavior: ensure `script.js` is next to HTML files.
 - Missing images: ensure `assets/images` folder is included.
-- Export not embedding images: run via local server (not `file://`).
+- If downloaded HTML should show images, keep `assets/images` next to the HTML file.
