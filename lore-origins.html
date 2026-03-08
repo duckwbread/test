@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="theme-beach">
+<body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div class="background" aria-hidden="true">
@@ -16,7 +17,6 @@
     <div class="foam"></div>
   </div>
 
-<body>
   <header class="site-header">
     <div class="brand">BlueShield Alliance Lore</div>
     <nav aria-label="Lore navigation" class="top-nav">
@@ -27,6 +27,7 @@
       <a href="lore-conflict.html#willem-gallery">Willem Photos</a>
       <a href="lore-origins.html#command-staff">Command Staff</a>
     </nav>
+  <header class="site-header texture-header">
     <div class="nav-wrap">
       <a class="brand" href="index.html">BlueShield Alliance</a>
       <nav class="nav-links" aria-label="Lore navigation">
@@ -70,13 +71,16 @@
           <p>Coleridge leads rapid-response marine operations when Willem moves aggressively near calf corridors. In the story, he commands interceptor teams that strike at Willem’s approach vectors to break pressure on dolphin pods and force safe withdrawal lanes.</p>
           <p>His crews call this doctrine “Shield Before Spear”: protect the pod first, then counterattack only to create escape time for vulnerable calves.</p>
         </article>
-  <main class="page-shell">
-    <section class="card lore-hero">
-      <img class="inline-image" alt="Origins chapter art" src="assets/images/fiji-water.webp" data-export-inline="true" loading="lazy" />
+    <section class="card lore-hero textured-panel">
+      <img class="inline-image" alt="Origins chapter art" src="assets/images/fiji-water.webp" loading="lazy" data-required-image="true" />
       <div>
         <p class="eyebrow">Chapter I</p>
         <h1>Origins</h1>
         <p>The alliance started as a fisherman radio net and became a coast-wide response coalition.</p>
+        <div class="button-row">
+          <button class="btn primary" data-open-modal="petitionModal">Sign Petition</button>
+          <button class="btn secondary" data-open-modal="donateModal">Donate</button>
+        </div>
       </div>
     </section>
 
@@ -88,6 +92,28 @@
     </section>
   </main>
 
+  <div id="petitionModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="petitionTitle">
+    <div class="modal-content" tabindex="-1">
+      <h3 id="petitionTitle">Sign Up to Petition</h3>
+      <form id="petitionForm">
+        <div class="field"><label for="petitionName">Full name</label><input id="petitionName" required minlength="2" /></div>
+        <div class="field"><label for="petitionEmail">Email</label><input id="petitionEmail" type="email" required /></div>
+        <div class="button-row"><button class="btn primary" type="submit">Submit</button><button class="btn secondary" type="button" data-close-modal>Close</button></div>
+      </form>
+    </div>
+  </div>
+  <div id="donateModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="donateTitle">
+    <div class="modal-content" tabindex="-1">
+      <h3 id="donateTitle">Donate</h3>
+      <form id="donateForm">
+        <div class="field"><label for="amount">Amount (USD)</label><input id="amount" type="number" min="1" required /></div>
+        <div class="field"><label for="method">Method</label><select id="method" required><option value="">Select payment method</option><option value="card">Card</option><option value="wire">Wire</option></select></div>
+        <div class="button-row"><button class="btn primary" type="submit">Submit</button><button class="btn secondary" type="button" data-close-modal>Close</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
 </html>
