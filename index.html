@@ -1678,20 +1678,20 @@ The Last Listener
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BlueShield Alliance | Protect Coastal Dolphin Pods</title>
-  <meta name="description" content="BlueShield Alliance campaign site with cleaned UI, accessible layout, working modals, and offline export that embeds images as base64." />
+  <meta name="description" content="BlueShield Alliance campaign site with improved accessibility, clearer lore formatting, and working navigation/modals." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
+  <header class="site-header texture-header">
     <div class="nav-wrap">
       <a class="brand" href="index.html">BlueShield Alliance</a>
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#story">Story</a>
-        <a href="#team">Team</a>
-        <a href="#lore">Lore</a>
-        <a href="#faq">FAQ</a>
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="lore-origins.html">Origins</a>
+        <a href="lore-depths.html">Depths</a>
+        <a href="lore-conflict.html">Conflict</a>
       </nav>
     </div>
   </header>
@@ -1701,10 +1701,10 @@ The Last Listener
       <div>
         <p class="eyebrow">Fictional conservation campaign</p>
         <h1>Protect coastal dolphin pods from the Willem threat</h1>
-        <p class="build-note"><strong>Build:</strong> 2026-03-07-ui-fix</p>
+        <p class="build-note"><strong>Build:</strong> 2026-03-07-ui-fix-r3</p>
         <p>
-          The UI is now simplified, spaced properly, and easier to read. Modals, links, and download behavior are fixed.
-          Images are loaded from your <code>assets/images</code> folder and can be embedded as base64 when exported.
+          Navigation, buttons, and popups are now wired consistently across all pages.
+          Images are loaded only from your <code>assets/images</code> folder (no base64 gibberish blocks in source).
         </p>
 
         <div class="button-row">
@@ -1719,29 +1719,29 @@ The Last Listener
           <li class="stat"><strong>18</strong>Nursery routes mapped</li>
         </ul>
       </div>
-      <img class="inline-image" alt="Willem field photo" src="assets/images/willem-1.webp" data-export-inline="true" loading="lazy" />
+      <img class="inline-image" alt="Willem field photo" src="assets/images/willem-1.webp" loading="lazy" data-required-image="true" />
     </section>
 
     <section class="card" id="team">
       <h2>Campaign team</h2>
       <div class="grid-4">
         <article class="person-card">
-          <img class="person-image" alt="Jack profile" src="assets/images/jack-old.webp" data-export-inline="true" loading="lazy" />
+          <img class="person-image" alt="Jack profile" src="assets/images/jack-old.webp" loading="lazy" data-required-image="true" />
           <h3>Jack Wilson</h3>
           <p>Marine biology lead coordinating pod movement monitoring.</p>
         </article>
         <article class="person-card">
-          <img class="person-image" alt="Micael profile" src="assets/images/michael-old.webp" data-export-inline="true" loading="lazy" />
+          <img class="person-image" alt="Micael profile" src="assets/images/michael-old.webp" loading="lazy" data-required-image="true" />
           <h3>Micael</h3>
           <p>Logistics and finance, keeping operations supplied.</p>
         </article>
         <article class="person-card">
-          <img class="person-image" alt="Tim profile" src="assets/images/tim-old.webp" data-export-inline="true" loading="lazy" />
+          <img class="person-image" alt="Tim profile" src="assets/images/tim-old.webp" loading="lazy" data-required-image="true" />
           <h3>Tim</h3>
           <p>Shoreline response and community briefing coordination.</p>
         </article>
         <article class="person-card">
-          <img class="person-image" alt="Cole profile" src="assets/images/cole-old.webp" data-export-inline="true" loading="lazy" />
+          <img class="person-image" alt="Cole profile" src="assets/images/cole-old.webp" loading="lazy" data-required-image="true" />
           <h3>Cole</h3>
           <p>Offshore tactical support for pod-safe route clearing.</p>
         </article>
@@ -1750,7 +1750,7 @@ The Last Listener
 
     <section class="card" id="lore">
       <h2>Lore chapters</h2>
-      <p>Formatted chapter pages with cleaner spacing:</p>
+      <p>Readable chapter pages with cleaner spacing and consistent navigation:</p>
       <div class="chapter-grid">
         <a class="chapter-link" href="lore-origins.html">Origins</a>
         <a class="chapter-link" href="lore-depths.html">Depths</a>
@@ -1763,15 +1763,16 @@ The Last Listener
       <details>
         <summary>What was the “massive gibberish” in the HTML?</summary>
         <p>
-          That was base64 image data (binary image bytes encoded as text). It looked like gibberish because it was the full image file embedded directly inside HTML.
-          I removed those giant inline blocks from normal page markup and now keep image files readable in <code>assets/images</code>.
+          It was base64 image data: binary image bytes encoded as text directly in HTML.
+          It looks random because it is file bytes, not normal text.
+          This source now uses clean file paths in <code>assets/images</code> instead.
         </p>
       </details>
       <details>
-        <summary>How does offline export work now?</summary>
+        <summary>How should I run this on Mac?</summary>
         <p>
-          When you click <strong>Download Offline HTML</strong>, JavaScript converts current image files into base64 and embeds them in the downloaded file.
-          This keeps your shipped HTML self-contained without giant hard-coded base64 blobs in source.
+          Open in a browser directly, or for best reliability run a local server:
+          <code>python3 -m http.server 4173</code> then go to <code>http://127.0.0.1:4173/index.html</code>.
         </p>
       </details>
     </section>
