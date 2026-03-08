@@ -76,7 +76,7 @@ If you truly cannot download files directly, see `OFFLINE_EXPORT.md` for exact s
 ## Open directly without server
 You can double-click an HTML file and it will usually render with styles/scripts.
 
-But for the **Download Offline HTML** feature (which embeds images as base64), local server mode is more reliable.
+Download Offline HTML now saves clean source and keeps image file paths in `assets/images`.
 
 ## Can I pull files from the internet into this project?
 
