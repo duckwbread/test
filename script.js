@@ -274,6 +274,6 @@ initImageHealthCheck();
     });
     link.click();
     URL.revokeObjectURL(url);
-    flash('Downloaded HTML source without giant base64 image blocks.');
+    flash('Downloaded clean HTML source.');
   });
 })();
