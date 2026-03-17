@@ -1704,7 +1704,7 @@ The Last Listener
         <p class="build-note"><strong>Build:</strong> 2026-03-07-ui-fix-r3</p>
         <p>
           Navigation, buttons, and popups are now wired consistently across all pages.
-          Images are loaded only from your <code>assets/images</code> folder (no base64 gibberish blocks in source).
+          Images are loaded only from your <code>assets/images</code> folder using normal file paths.
         </p>
 
         <div class="button-row">
@@ -1719,7 +1719,7 @@ The Last Listener
           <li class="stat"><strong>18</strong>Nursery routes mapped</li>
         </ul>
       </div>
-      <img class="inline-image" alt="Willem field photo" src="assets/images/willem-1.webp" loading="lazy" data-required-image="true" />
+      <div class="hero-image-frame"><img class="inline-image" alt="Willem field photo" src="assets/images/willem-1.webp" loading="lazy" data-required-image="true" /></div>
     </section>
 
     <section class="card" id="team">
@@ -1758,14 +1758,28 @@ The Last Listener
       </div>
     </section>
 
+
+    <section class="card" id="image-sources">
+      <h2>Image sources in use</h2>
+      <ul>
+        <li><code>assets/images/willem-1.webp</code></li>
+        <li><code>assets/images/jack-old.webp</code></li>
+        <li><code>assets/images/michael-old.webp</code></li>
+        <li><code>assets/images/tim-old.webp</code></li>
+        <li><code>assets/images/cole-old.webp</code></li>
+        <li><code>assets/images/fiji-water.webp</code> (lore origins)</li>
+        <li><code>assets/images/the-finger-files.webp</code> (lore depths)</li>
+        <li><code>assets/images/willem-2.webp</code> (lore conflict)</li>
+      </ul>
+    </section>
+
     <section class="card" id="faq">
       <h2>FAQ</h2>
       <details>
-        <summary>What was the “massive gibberish” in the HTML?</summary>
+        <summary>How are images loaded now?</summary>
         <p>
-          It was base64 image data: binary image bytes encoded as text directly in HTML.
-          It looks random because it is file bytes, not normal text.
-          This source now uses clean file paths in <code>assets/images</code> instead.
+          This site now uses regular image files from <code>assets/images</code> (for example <code>assets/images/cole-old.webp</code>) in the HTML files.
+          There are no embedded data-URL image blobs in the source HTML.
         </p>
       </details>
       <details>
